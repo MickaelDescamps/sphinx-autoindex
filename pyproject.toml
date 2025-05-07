@@ -1,0 +1,7 @@
+[project]
+name = "sphinx-autoindex"
+version = "0.1.0"
+description = "Sphinx extension to automatically index the source code for autodoc"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
