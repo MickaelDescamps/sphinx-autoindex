@@ -2,7 +2,7 @@
 *uv.lock
 .venv
 *egg-info
-
+*__pycache__/
 
 # Sphinx ignore
 docs/build/*

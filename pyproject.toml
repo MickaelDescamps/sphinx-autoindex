@@ -1,16 +1,31 @@
 [project]
-name = "sphinx-autoindex"
+name = "sphinx_autoindex"
 version = "0.1.0"
 description = "Sphinx extension to automatically index the source code for autodoc"
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = ["sphinx"]
+dependencies = [
+    "sphinx",
+]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx",
+    "sphinx-autodoc-typehints",
+    "sphinx-autoindex",
+    "sphinx-copybutton>=0.5.2",
+    "sphinx-prompt>=1.9.0",
+    "sphinx-rtd-theme>=3.0.2",
+    "sphinxemoji>=0.3.1",
+    "toml>=0.10.2",
+]
+
 
 [project.urls]
 Homepage = "https://github.com/MickaelDescamps/sphinx-autoindex"
 
 [tool.setuptools]
-packages = ["sphinx-autoindex"]
+packages = ["sphinx_autoindex"]
 package-dir = {"" = "src"}
 
 [build-system]
