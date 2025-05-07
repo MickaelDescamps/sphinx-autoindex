@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sphinx_autoindex.generator &mdash; sphinx_autoindex 0.1.0 documentation</title>
+  <title>How to use this extension &mdash; sphinx_autoindex 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -23,7 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="sphinx_autoindex.extension" href="extension.html" /> 
+    <link rel="next" title="API" href="../api/api.html" />
+    <link rel="prev" title="sphinx-autoindex documentation" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,15 +48,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../quickstart/usage.html">How to use this extension</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="extension.html">sphinx_autoindex.extension</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">sphinx_autoindex.generator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#sphinx_autoindex.generator.generate_rst_files"><code class="docutils literal notranslate"><span class="pre">generate_rst_files()</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to use this extension</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#start">Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#options">Options</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/api.html">API</a></li>
 </ul>
 
         </div>
@@ -72,10 +70,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="api.html">API</a></li>
-      <li class="breadcrumb-item active">sphinx_autoindex.generator</li>
+      <li class="breadcrumb-item active">How to use this extension</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/api/generator.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/quickstart/usage.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -83,26 +80,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-sphinx_autoindex.generator">
-<span id="sphinx-autoindex-generator"></span><h1>sphinx_autoindex.generator<a class="headerlink" href="#module-sphinx_autoindex.generator" title="Link to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="sphinx_autoindex.generator.generate_rst_files">
-<span class="sig-prename descclassname"><span class="pre">sphinx_autoindex.generator.</span></span><span class="sig-name descname"><span class="pre">generate_rst_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sphinx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sphinx_autoindex/generator.html#generate_rst_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sphinx_autoindex.generator.generate_rst_files" title="Link to this definition"></a></dt>
-<dd><p>Generate rst files for each module in the package</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>app</strong> – Sphinx application</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="how-to-use-this-extension">
+<h1>How to use this extension<a class="headerlink" href="#how-to-use-this-extension" title="Link to this heading"></a></h1>
+<section id="start">
+<h2>Start<a class="headerlink" href="#start" title="Link to this heading"></a></h2>
+<p>For now usage is really simple you have just to:</p>
+<ol class="arabic">
+<li><p>Add it to your extension list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sphinx_autoindex&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>Add your package root path:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">package_toindex</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;src&quot;</span> <span class="o">/</span> <span class="s2">&quot;sphinx_autoindex&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="options">
+<h2>Options<a class="headerlink" href="#options" title="Link to this heading"></a></h2>
+<p>This extension doesn’t have options for now</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="extension.html" class="btn btn-neutral float-left" title="sphinx_autoindex.extension" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="sphinx-autoindex documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
