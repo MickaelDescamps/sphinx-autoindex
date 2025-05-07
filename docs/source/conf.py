@@ -64,6 +64,7 @@ if pyproject_toml_file.exists() and pyproject_toml_file.is_file():
 
 extensions = [
     'sphinx_autoindex',
+    'myst_parser',
     'sphinx_rtd_theme',
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
@@ -74,6 +75,12 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.todo'
 ]
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'restructuredtext',
+    '.md': 'markdown',
+}
 
 package_toindex = str(Path(__file__).parent.parent.parent / "src" / "sphinx_autoindex")
 
