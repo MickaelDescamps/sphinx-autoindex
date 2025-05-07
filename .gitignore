@@ -2,3 +2,7 @@
 *uv.lock
 .venv
 *egg-info
+
+
+# Sphinx ignore
+docs/build/*
