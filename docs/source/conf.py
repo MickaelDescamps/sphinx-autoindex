@@ -25,8 +25,8 @@ if os.path.isdir(sphinx_path / "source" / "autoapi"):
 project = 'sphinx_autoindex'
 copyright = '2025, Mickaël Descamps'
 author = 'Mickaël Descamps'
-release = '0.1.0'
-version = '0.1.0'
+release = '0.1.2'
+version = '0.1.2'
 
 extensions = [
     'sphinx_autoindex',
