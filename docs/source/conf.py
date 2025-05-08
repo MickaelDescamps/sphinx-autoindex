@@ -28,40 +28,6 @@ author = 'Mickaël Descamps'
 release = '0.1.0'
 version = '0.1.0'
 
-pyproject_toml_file = project_path / "pyproject.toml"
-if pyproject_toml_file.exists() and pyproject_toml_file.is_file():
-    data = toml.load(pyproject_toml_file)
-
-    project = 'sphinx-autoindex'
-    copyright = '2025, Mickaël Descamps'
-    author = 'Mickaël Descamps'
-    release = '0.1.0'
-
-    # Get project version, name, copyright and author
-    if "project" in data:
-        project_data = data["project"]
-    elif "tool" in data and "poetry" in data["tool"]:
-        project_data = data["tool"]["poetry"]
-    else:
-        project_data = None
-
-    if project_data is not None:
-        print(f"Keys : {project_data.keys()}")
-        if "name" in project_data:
-            project = project_data["name"]
-        if "version" in project_data:
-            version = project_data["version"]
-        if "authors" in project_data:
-            list_users = []
-            for single_author in project_data["authors"]:
-                if isinstance(single_author, str):
-                    list_users.append(single_author)
-                elif isinstance(single_author, dict):
-                    if "name" in single_author and "email" in single_author:
-                        list_users.append(f"{single_author['name']} - {single_author['email']}")
-
-            author = ", ".join(list_users)
-
 extensions = [
     'sphinx_autoindex',
     'myst_parser',

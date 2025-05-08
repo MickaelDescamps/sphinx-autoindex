@@ -16,5 +16,5 @@ documentation for details.
    :caption: Contents:
 
    quickstart/usage.md
-   api/api.rst
+   api/index.rst
 
