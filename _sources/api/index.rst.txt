@@ -1,8 +1,9 @@
-API
-===
+sphinx_autoindex
+================
 
 .. toctree::
    :maxdepth: 2
 
    extension
    generator
+   package

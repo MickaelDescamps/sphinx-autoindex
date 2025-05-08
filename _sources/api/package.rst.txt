@@ -1,7 +1,7 @@
-extension
-=========
+package
+=======
 
-.. automodule:: sphinx_autoindex.extension
+.. automodule:: sphinx_autoindex.package
     :members:
     :undoc-members:
     :show-inheritance:
