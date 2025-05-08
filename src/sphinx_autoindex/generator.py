@@ -28,6 +28,8 @@ def generate_rst_files(app: Sphinx):
 
     # Clean previous files
     for file in Path(doc_path).glob("*"):
+        if file.is_dir():
+            continue
         file.unlink()
 
     # Get the package name from this path

@@ -14,6 +14,10 @@ class Package:
         self.name = name
         self.code_path = code_path
         self.doc_path = doc_path
+
+        if not doc_path.exists():
+            doc_path.mkdir(parents=True)
+
         self.tree_path = tree_path
         self.modules = []
         self.packages = []
@@ -60,7 +64,7 @@ class Package:
         with open(self.doc_path / "index.rst", "w", encoding="utf-8") as f:
             f.write(f"{self.name}\n")
             f.write(f"{'=' * len(self.name)}\n\n")
-            f.write(".. toctree::\n   :maxdepth: 2\n\n")
+            f.write(".. toctree::\n   :maxdepth: 1\n\n")
             for module_info in self.modules:
                 f.write(f"   {module_info.name}\n")
             for package in self.packages:
