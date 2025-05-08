@@ -14,3 +14,8 @@ For now usage is really simple you have just to:
 ## Options
 
 This extension doesn't have options for now
+
+## Compatibility
+
+- [x] autodoc_pydantic (Tested with basic BaseModel and Field (description and ge))
+- [ ] The next one to test
