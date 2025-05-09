@@ -77,9 +77,9 @@ html_theme = 'sphinx_rtd_theme'
 #html_favicon = '_static/logo1.png'
 html_show_sphinx = False
 html_theme_options = {
-    'logo_only': True,
-    'style_nav_header_background': '#e65e26',
-    'version_selector': False
+    'logo_only': False,
+    #'style_nav_header_background': '#e65e26',
+    'version_selector': True
 }
 
 # Graphviz configurations
