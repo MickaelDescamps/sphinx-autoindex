@@ -97,8 +97,21 @@
 
     <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigSingleton</span><span class="p">()</span>
 
+    <span class="n">global_autodoc_configs</span><span class="p">:</span><span class="nb">dict</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sai_autodoc_global_config</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">global_autodoc_configs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">global_autodoc_configs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;members&quot;</span><span class="p">:{},</span>
+        <span class="s2">&quot;undoc-members&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;show-inheritance&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;inherited-members&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;exclude-members&quot;</span><span class="p">:{},</span>
+        <span class="s2">&quot;special-members&quot;</span><span class="p">:{},</span>
+        <span class="s2">&quot;private-members&quot;</span><span class="p">:{},</span>
+        <span class="p">}</span>
+
     <span class="n">config</span><span class="o">.</span><span class="n">load_conf</span><span class="p">(</span><span class="n">package_toindex</span><span class="p">,</span>
-                     <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sai_autodoc_global_config</span><span class="p">,</span>
+                     <span class="n">global_autodoc_configs</span><span class="p">,</span>
                      <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sai_autodoc_specific_config</span><span class="p">)</span>
 
     <span class="n">package_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">package_toindex</span><span class="p">)</span>
