@@ -1,5 +1,5 @@
 const themeFlyoutDisplay = "hidden";
-const themeVersionSelector = false;
+const themeVersionSelector = true;
 const themeLanguageSelector = true;
 
 if (themeFlyoutDisplay === "attached") {
