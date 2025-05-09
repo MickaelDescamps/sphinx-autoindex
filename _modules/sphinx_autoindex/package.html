@@ -77,6 +77,8 @@
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pkgutil</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">sphinx_autoindex.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigSingleton</span>
+
 
 <div class="viewcode-block" id="Package">
 <a class="viewcode-back" href="../../api/package.html#sphinx_autoindex.package.Package">[docs]</a>
@@ -95,12 +97,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">code_path</span> <span class="o">=</span> <span class="n">code_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">doc_path</span> <span class="o">=</span> <span class="n">doc_path</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">doc_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="n">doc_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">tree_path</span> <span class="o">=</span> <span class="n">tree_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">modules</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">packages</span> <span class="o">=</span> <span class="p">[]</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">packages</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigSingleton</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_config</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_autodoc_conf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;no-index&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_config</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_config</span><span class="p">[</span><span class="s2">&quot;no-index&quot;</span><span class="p">]:</span>
+                <span class="k">return</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">doc_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">doc_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Package.scan_package">
@@ -136,16 +146,81 @@
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">module_info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">module_info</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;.. automodule:: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_path</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">module_info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;    :members:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;    :undoc-members:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;    :show-inheritance:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;    :special-members: __init__</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_autodoc_confs</span><span class="p">(</span><span class="n">module_info</span><span class="o">.</span><span class="n">name</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Package.build_autodoc_confs">
+<a class="viewcode-back" href="../../api/package.html#sphinx_autoindex.package.Package.build_autodoc_confs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_autodoc_confs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module_name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+        <span class="n">options_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigSingleton</span><span class="p">()</span>
+
+        <span class="n">module_tree</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tree_path</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">current_confs</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_autodoc_conf</span><span class="p">(</span><span class="n">module_tree</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;no-index&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_confs</span><span class="p">[</span><span class="s2">&quot;no-index&quot;</span><span class="p">]:</span>
+                <span class="n">options_str</span> <span class="o">=</span> <span class="s2">&quot;    :no-index:</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="k">return</span> <span class="n">options_str</span>
+
+        <span class="k">if</span> <span class="s2">&quot;platform&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="n">options_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;    :platform: </span><span class="si">{</span><span class="n">current_confs</span><span class="p">[</span><span class="s1">&#39;platform&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;deprecated&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_confs</span><span class="p">[</span><span class="s2">&quot;deprecated&quot;</span><span class="p">]:</span>
+                <span class="n">options_str</span> <span class="o">+=</span> <span class="s2">&quot;    :deprecated:</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;ignore-module-all&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_confs</span><span class="p">[</span><span class="s2">&quot;ignore-module-all&quot;</span><span class="p">]:</span>
+                <span class="n">options_str</span> <span class="o">+=</span> <span class="s2">&quot;    :ignore-module-all:</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;members&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="n">options_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;    :members: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_confs</span><span class="p">[</span><span class="s1">&#39;members&#39;</span><span class="p">])</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;exclude-members&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="n">options_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;    :exclude-members: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_confs</span><span class="p">[</span><span class="s1">&#39;exclude-members&#39;</span><span class="p">])</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;imported-members&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="n">options_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;    :imported-members: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_confs</span><span class="p">[</span><span class="s1">&#39;imported-members&#39;</span><span class="p">])</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;special-members&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current_confs</span><span class="p">[</span><span class="s2">&quot;special-members&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;__init__&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">current_confs</span><span class="p">[</span><span class="s2">&quot;special-members&quot;</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;__init__&quot;</span><span class="p">]</span>
+            <span class="n">options_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;    :special-members: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">options_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;    :special-members: __init__</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;undoc-members&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_confs</span><span class="p">[</span><span class="s2">&quot;undoc-members&quot;</span><span class="p">]:</span>
+                <span class="n">options_str</span> <span class="o">+=</span> <span class="s2">&quot;    :undoc-members:</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;private-members&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_confs</span><span class="p">[</span><span class="s2">&quot;private-members&quot;</span><span class="p">]:</span>
+                <span class="n">options_str</span> <span class="o">+=</span> <span class="s2">&quot;    :private-members:</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;member-order&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="n">options_str</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;    :member-order: </span><span class="si">{</span><span class="n">current_confs</span><span class="p">[</span><span class="s1">&#39;member-order&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;show-inheritance&quot;</span> <span class="ow">in</span> <span class="n">current_confs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">current_confs</span><span class="p">[</span><span class="s2">&quot;show-inheritance&quot;</span><span class="p">]:</span>
+                <span class="n">options_str</span> <span class="o">+=</span> <span class="s2">&quot;    :show-inheritance:</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">return</span> <span class="n">options_str</span></div>
 
 
 <div class="viewcode-block" id="Package.generate_index">
 <a class="viewcode-back" href="../../api/package.html#sphinx_autoindex.package.Package.generate_index">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">generate_index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Method to generate the index for the package&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="s2">&quot;no-index&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_config</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_config</span><span class="p">[</span><span class="s2">&quot;no-index&quot;</span><span class="p">]:</span>
+                <span class="k">return</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">generate_modules</span><span class="p">()</span>
 

@@ -1,7 +1,7 @@
-extension
-=========
+config
+======
 
-.. automodule:: sphinx_autoindex.extension
+.. automodule:: sphinx_autoindex.config
     :members: 
     :exclude-members: 
     :special-members: __init__

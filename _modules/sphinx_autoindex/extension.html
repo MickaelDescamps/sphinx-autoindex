@@ -81,6 +81,8 @@
 <a class="viewcode-back" href="../../api/extension.html#sphinx_autoindex.extension.setup">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Sphinx</span><span class="p">):</span>
     <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span><span class="s1">&#39;package_toindex&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;env&quot;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span><span class="s1">&#39;sai_autodoc_global_config&#39;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;env&quot;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add_config_value</span><span class="p">(</span><span class="s1">&#39;sai_autodoc_specific_config&#39;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;env&quot;</span><span class="p">)</span>
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;builder-inited&#39;</span><span class="p">,</span> <span class="n">generate_rst_files</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="p">{</span>

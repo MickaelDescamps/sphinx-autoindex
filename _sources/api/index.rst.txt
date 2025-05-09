@@ -4,6 +4,7 @@ sphinx_autoindex
 .. toctree::
    :maxdepth: 1
 
+   config
    extension
    generator
    package
