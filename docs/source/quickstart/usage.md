@@ -12,8 +12,29 @@ For now usage is really simple you have just to:
     ```
    
 ## Options
+You can customize autodoc options for global documentation and customize by module or package name applied extra options
 
-This extension doesn't have options for now
+Default global options:
+```python
+sai_autodoc_global_config = {
+    "members":{},
+    "undoc-members":True,
+    "show-inheritance":True,
+    "inherited-members":True,
+    "exclude-members":{},
+    "special-members":{},
+    "private-members":{},
+}
+```
+Specific option example
+```python
+sai_autodoc_specific_config = {
+    "sphinx_autoindex.test_abc": {
+        "no-index": True
+    }
+}
+```
+
 
 ## Compatibility
 

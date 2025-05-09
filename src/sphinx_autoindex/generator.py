@@ -19,8 +19,21 @@ def generate_rst_files(app: Sphinx):
 
     config = ConfigSingleton()
 
+    global_autodoc_configs:dict = app.config.sai_autodoc_global_config
+
+    if len(global_autodoc_configs) == 0:
+        global_autodoc_configs = {
+        "members":{},
+        "undoc-members":True,
+        "show-inheritance":True,
+        "inherited-members":True,
+        "exclude-members":{},
+        "special-members":{},
+        "private-members":{},
+        }
+
     config.load_conf(package_toindex,
-                     app.config.sai_autodoc_global_config,
+                     global_autodoc_configs,
                      app.config.sai_autodoc_specific_config)
 
     package_path = Path(package_toindex)
