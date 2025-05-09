@@ -5,6 +5,7 @@ from pathlib import Path
 from sphinx.application import Sphinx
 from sphinx.util.console import bold, colorize
 
+from sphinx_autoindex.config import ConfigSingleton
 from sphinx_autoindex.package import Package
 
 
@@ -15,6 +16,12 @@ def generate_rst_files(app: Sphinx):
     package_toindex = app.config.package_toindex
     if package_toindex is None:
         raise RuntimeError("You must set 'package_toindex' in conf.py")
+
+    config = ConfigSingleton()
+
+    config.load_conf(package_toindex,
+                     app.config.sai_autodoc_global_config,
+                     app.config.sai_autodoc_specific_config)
 
     package_path = Path(package_toindex)
 

@@ -50,6 +50,23 @@ source_suffix = {
 
 package_toindex = str(Path(__file__).parent.parent.parent / "src" / "sphinx_autoindex")
 
+sai_autodoc_global_config = {
+    "members":{},
+    "undoc-members":True,
+    "show-inheritance":True,
+    "inherited-members":True,
+    "exclude-members":{},
+    "special-members":{},
+    "private-members":{},
+}
+
+sai_autodoc_specific_config = {
+    "sphinx_autoindex.test_abc": {
+        "no-index": True
+    }
+}
+
+
 templates_path = ['_templates']
 exclude_patterns = []
 
