@@ -25,8 +25,18 @@ if os.path.isdir(sphinx_path / "source" / "autoapi"):
 project = 'sphinx_autoindex'
 copyright = '2025, Mickaël Descamps'
 author = 'Mickaël Descamps'
-release = '0.1.4'
-version = '0.1.4'
+
+
+def get_version():
+    pyproject_path = project_path / "pyproject.toml"
+    if not pyproject_path.is_file():
+        return '0.0.0'
+    pyproject = toml.load(pyproject_path)
+    return pyproject.get('project', {}).get('version', '0.0.0')
+
+version = get_version()
+release = version
+
 
 extensions = [
     'sphinx_autoindex',
